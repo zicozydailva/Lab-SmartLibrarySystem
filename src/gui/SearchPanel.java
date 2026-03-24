@@ -1,5 +1,9 @@
 package gui;
 
+import controller.SearchEngine;
+import controller.SystemData;
+import model.LibraryItem;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -32,12 +36,35 @@ public class SearchPanel extends JPanel {
 
         add(sortButton);
 
-        searchButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "Search logic coming")
-        );
+        // 🔍 SEARCH
+        searchButton.addActionListener(e -> {
+            String title = searchField.getText();
+            String selected = (String) searchType.getSelectedItem();
 
-        sortButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "Sort logic coming")
-        );
+            LibraryItem result;
+
+            if ("Linear Search".equals(selected)) {
+                result = SearchEngine.linearSearch(SystemData.libraryManager.getItems(), title);
+            } else {
+                SearchEngine.insertionSort(SystemData.libraryManager.getItems());
+                result = SearchEngine.binarySearch(SystemData.libraryManager.getItems(), title);
+            }
+
+            JOptionPane.showMessageDialog(this,
+                    result != null ? "Found: " + result.getTitle() : "Not found");
+        });
+
+        // 🔄 SORT
+        sortButton.addActionListener(e -> {
+            String selected = (String) sortType.getSelectedItem();
+
+            if ("Insertion Sort".equals(selected)) {
+                SearchEngine.insertionSort(SystemData.libraryManager.getItems());
+            } else {
+                SearchEngine.mergeSort(SystemData.libraryManager.getItems());
+            }
+
+            JOptionPane.showMessageDialog(this, "Sorted successfully!");
+        });
     }
 }

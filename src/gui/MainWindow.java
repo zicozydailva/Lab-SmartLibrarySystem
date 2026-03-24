@@ -10,12 +10,14 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create Tabs
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.addTab("View Items", new ViewPanel());
+        // SHARE SAME VIEW PANEL
+        ViewPanel viewPanel = new ViewPanel();
+
+        tabbedPane.addTab("View Items", viewPanel);
         tabbedPane.addTab("Borrow/Return", new BorrowPanel());
-        tabbedPane.addTab("Admin", new AdminPanel());
+        tabbedPane.addTab("Admin", new AdminPanel(viewPanel)); // 🔥 IMPORTANT
         tabbedPane.addTab("Search & Sort", new SearchPanel());
 
         add(tabbedPane);

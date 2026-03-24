@@ -1,5 +1,10 @@
 package gui;
 
+import controller.SearchEngine;
+import controller.SystemData;
+import model.LibraryItem;
+import model.UserAccount;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +17,6 @@ public class BorrowPanel extends JPanel {
         JTextField itemField = new JTextField();
 
         JButton borrowButton = new JButton("Borrow");
-        JButton returnButton = new JButton("Return");
 
         add(new JLabel("User Name:"));
         add(userField);
@@ -21,14 +25,21 @@ public class BorrowPanel extends JPanel {
         add(itemField);
 
         add(borrowButton);
-        add(returnButton);
 
-        borrowButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "Borrow logic coming")
-        );
+        borrowButton.addActionListener(e -> {
+            String userName = userField.getText();
+            String title = itemField.getText();
 
-        returnButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "Return logic coming")
-        );
+            LibraryItem item = SearchEngine.linearSearch(
+                    SystemData.libraryManager.getItems(), title
+            );
+
+            if (item != null) {
+                UserAccount user = new UserAccount(userName, userName);
+                SystemData.borrowController.borrowItem(user, item);
+            } else {
+                JOptionPane.showMessageDialog(this, "Item not found!");
+            }
+        });
     }
 }
