@@ -17,7 +17,7 @@ public class MainWindow extends JFrame {
 
         tabbedPane.addTab("View Items", viewPanel);
         tabbedPane.addTab("Borrow/Return", new BorrowPanel());
-        tabbedPane.addTab("Admin", new AdminPanel(viewPanel)); // 🔥 IMPORTANT
+        tabbedPane.addTab("Admin", new AdminPanel(viewPanel)); // IMPORTANT
         tabbedPane.addTab("Search & Sort", new SearchPanel());
 
         add(tabbedPane);

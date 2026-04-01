@@ -36,7 +36,7 @@ public class SearchPanel extends JPanel {
 
         add(sortButton);
 
-        // 🔍 SEARCH
+        // SEARCH
         searchButton.addActionListener(e -> {
             String title = searchField.getText();
             String selected = (String) searchType.getSelectedItem();
@@ -54,7 +54,7 @@ public class SearchPanel extends JPanel {
                     result != null ? "Found: " + result.getTitle() : "Not found");
         });
 
-        // 🔄 SORT
+        // SORT
         sortButton.addActionListener(e -> {
             String selected = (String) sortType.getSelectedItem();
 
